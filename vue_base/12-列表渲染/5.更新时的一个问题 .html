@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表排序</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+
+        <h2>人员列表</h2>
+        <button @click="updateMei">更新马冬梅信息</button>
+
+        <ul>
+            <li v-for="(p,index) in persons" :key="index">
+                {{p.name}}-{{ p.age }}- {{ p.sex }}
+            </li>
+        </ul>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        //用计算属性书写功能
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: "001", name: '周冬雨', age: 20, sex: '女' },
+                    { id: "002", name: '马冬梅', age: 19, sex: '女' },
+                    { id: "003", name: '周杰伦', age: 21, sex: '男' },
+                    { id: "004", name: '温兆伦', age: 22, sex: '男' }
+                ],
+
+            },
+            methods: {
+                updateMei() {
+                    /* this.persons[1].name = '马老师';  //奏效
+                    this.persons[1].age = 50;      //奏效
+                    this.persons[1].sex = '男'; //奏效
+                    this.persons[1] = { id: '002', name: '马老师', age: 50, sex:'男' }; */
+
+                    //这样修改vue是无法监测数据的
+                    this.persons[1] = { id: "002", name: '马老师', age: 50, sex: '男' }
+                }
+            }
+
+        })
+
+        // vue监测数据改变的原理
+        /*  2. 如何监测对象中的数据？
+                通过setter实现监视，且要在new Vue时就传入要监测的数据。
+                           (1).对象中后追加的属性，Vue默认不做响应式处理
+                       (2).如需给后添加的属性做响应式，请使用如下API：
+                                   Vue.set(target，propertyName/index，value) 或
+                                   vm.$set(target，propertyName/index，value) */
+
+    </script>
+</body>
+
+</html>

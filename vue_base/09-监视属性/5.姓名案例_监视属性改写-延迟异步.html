@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓:<input type="text" v-model="firstName"><br />
+        名:<input type="text" v-model="lastName"><br />
+        全名: <span>{{fullName}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                firstName: '张',
+                lastName: '三',
+                fullName: '张-三'
+            },
+            watch: {
+                /* firstName(val){
+                    this.fullName = val + this.lastName
+                }, */
+                // 如果想修改firstName后延迟一秒显示fullName
+                firstName(val) {
+                    //继承外部作用域的this
+                    //注意此时的函数写成箭头函数(因为它并不是由vue来调用的)
+                    //如果写成function(){}的形式 this === window,则无法更新watch属性
+                    setTimeout(() => {
+                        this.fullName = val + this.lastName
+                    }, 1000);
+                },
+                lastName(val) {
+                    this.fullName = this.firstName + val
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

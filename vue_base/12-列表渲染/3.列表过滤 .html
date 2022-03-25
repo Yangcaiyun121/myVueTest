@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基本列表</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="root">
+
+        <h2>人员列表</h2>
+          <!--v-model双向绑定-->
+        <input type="text" placeholder="请输入名字" v-model="keyword">
+        <ul>
+            <li v-for="(person,index) in filPersons" :key="index">
+                {{person.name}}-{{person.age}}
+            </li>
+        </ul>
+
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+         //用监视属性书写功能
+        /* const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '张三', age: 18 },
+                    { id: '002', name: '李四', age: 18 },
+                    { id: '003', name: '王五', age: 18 },
+                ],
+                keyword: '',
+                filPersons: []
+            },
+            watch: {
+                keyword: {
+                    immediate: true,
+                    handler(newV) {
+                        this.filPersons = this.persons.filter((p)=>p.name.indexOf(newV) !== -1)
+                    }
+                }
+            }
+        }) */
+
+         //用计算属性书写功能
+         const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '张三', age: 18 },
+                    { id: '002', name: '李四', age: 18 },
+                    { id: '003', name: '王五', age: 18 },
+                ],
+                keyword: '',
+            },
+            computed:{
+                filPersons(){
+                    return this.persons.filter((p)=>{
+                        return p.name.indexOf(this.keyword) !== -1
+                    })
+                }
+            }
+                
+            
+        })
+    </script>
+</body>
+
+</html>

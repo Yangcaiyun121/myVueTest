@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>el和data的两种写法</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>你好呀,{{name}}</h1>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+         //el的两种写法
+       /*  const v = new Vue({
+            // el:'#root',
+            data:{
+                name:'刘坤秒'
+            }
+        })
+        // v.$mount('#root');
+        setTimeout(() => {
+            v.$mount('#root');
+        }, 1000); */
+
+        //data的两种写法
+        new Vue({
+            el:'#root',
+             //data的第一种写法:对象式
+            /* data:{
+                name:'刘坤秒'
+            } */
+            //第二种写法: 函数式(返回对象中包含你想渲染的模版数据)
+           //学习组件的时候要是用函数式 这个函数是Vue来调用的
+
+           //尽量不要写成箭头函数，因为箭头函数的this指向的是window,而此处指向的是Vue实例
+            data (){
+                return {
+                    name:'刘坤秒hhh'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初识vue</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--插值语法-->
+     <!--vue模版-->
+    <div id="root">
+        <!--注意双花括号中可以写js表达式-->
+        <!--
+          js表达式：一个表达式生成一个值，放在任何一个需要值的地方
+                例如 (1).a (2) 1+b (3) demo(1) （4) x===y ? 1 : 0
+
+          js语句： if while for...
+        -->
+        <h1>Hello,{{name}},{{age}}</h1>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        // 创建Vue对象
+        new Vue({
+            el:'#root',//element
+            data:{//data用于存储数据,供ele指定的容器去使用
+                name:'刘坤淼',
+                age:24
+            }
+        })
+        
+    </script>
+</body>
+</html>

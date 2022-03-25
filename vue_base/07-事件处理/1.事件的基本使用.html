@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>欢迎{{name}}</h1>
+        <button v-on:click="showInfo1">点我提示信息1(不传参)</button>
+        <!-- 简写形式 @click -->
+        <button @click="showInfo2($event,66)">点我提示信息2(传参)</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el:'#root',
+            data:{
+                name:'南京'
+            },
+            //methods配置事件处理的回调函数
+            methods:{
+                showInfo1(){
+                    //默认给你传递event参数
+                    //当是箭头函数的话this那就是window
+                    // console.log(this === vm);
+                    alert('欢迎新同学!')
+                },
+                showInfo2(event,num){
+                    // console.log(event,num);
+                    alert('欢迎新同学!!')
+                    console.log(`接收参数:${num}`);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

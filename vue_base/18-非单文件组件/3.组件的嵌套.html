@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非单文件组件</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!--  <hello></hello>
+        <hr>
+        <school></school> -->
+        <app></app>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+
+
+        //student组件  要写在前面
+        const student = Vue.extend({
+            template: `<div>
+            <h2>学生姓名：{{studentName}}</h2>
+            <h2>学校地址：{{age}}</h2>
+        </div>`,
+            data() {
+                return {
+                    studentName: '张小三',
+                    age: '18'
+                }
+            }
+        });
+        //创建school组件
+        const school = Vue.extend({
+            // 子组件注册给哪个父组件，就嵌套在哪个副组件里面,不能直接写在模板里面
+            template: `<div>
+            <h2>学校名称：{{schoolName}}</h2>
+            <h2>学校地址：{{address}}</h2>
+            <student></student> 
+        </div>`,
+            data() {
+                return {
+                    schoolName: '新加坡国立大学',
+                    address: '新加坡'
+                }
+            },
+            components: {
+                student
+            }
+
+        });
+
+        //hello组件
+        const hello = Vue.extend({
+            template: `<div>
+            <h2>你好：{{name}}</h2>
+        </div>`,
+            data() {
+                return {
+                    name: 'liukunmiao',
+                }
+            }
+        });
+        const app = Vue.extend({
+            template: `<div>
+                <hello></hello>
+                <hr>
+                 <school></school></div>`,
+            components: {
+                school,
+                hello
+            }
+        });
+        new Vue({
+            // template:`<app></app>`,
+            el: '#root',
+            //配置组件(局部注册)
+            components: {
+                //schoo组件与hello组件平级
+                /* school , // school:school
+                hello */
+                app
+            }
+        })
+    </script>
+</body>
+
+</html>

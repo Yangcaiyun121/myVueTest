@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非单文件组件</title>
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!--
+			Vue中使用组件的三大步骤：
+					一、定义组件(创建组件)
+					二、注册组件
+					三、使用组件(写组件标签)
+
+			一、如何定义一个组件？
+						使用Vue.extend(options)创建，其中options和new Vue(options)时传入的那个options几乎一样，但也有点区别；
+						区别如下：
+								1.el不要写，为什么？ ——— 最终所有的组件都要经过一个vm的管理，由vm中的el决定服务哪个容器。
+								2.data必须写成函数，为什么？ ———— 避免组件被复用时，数据存在引用关系。
+						备注：使用template可以配置组件结构。
+
+			二、如何注册组件？
+							1.局部注册：靠new Vue的时候传入components选项
+							2.全局注册：靠Vue.component('组件名',组件)
+
+			三、编写组件标签：
+							<school></school>
+-->
+    <div id="root">
+        <hello></hello>
+        <school></school>
+        <hr>
+        <student></student>
+    </div>
+    <div id="root2">
+        <hello></hello>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+
+        /**
+         * 想用组件的三个步骤
+         * 1.创建组件
+         * 2.注册组件
+         * 3.使用组件
+         */
+        //创建school组件
+        const school = Vue.extend({
+            template: `<div>
+            <h2>学校名称：{{schoolName}}</h2>
+            <h2>学校地址：{{address}}</h2>
+        </div>`,
+            //组件定义不要写el配置项，因为最终所有的组件都要被vm所管理，由vm决定服务于哪个容器
+            //这里data必须写成函数形式 避免多次使用组件导致共用data对象导致一个问题
+            data() {
+                return {
+                    schoolName: '新加坡国立大学',
+                    address: '新加坡'
+                }
+            }
+
+        });
+        //student组件
+        const student = Vue.extend({
+            template: `<div>
+            <h2>学生姓名：{{studentName}}</h2>
+            <h2>学校地址：{{age}}</h2>
+        </div>`,
+            data() {
+                return {
+                    studentName: '张小三',
+                    age: '18'
+                }
+            }
+        });
+        //hello组件
+        const hello = Vue.extend({
+            template: `<div>
+            <h2>你好：{{name}}</h2>
+        </div>`,
+            data() {
+                return {
+                    name: 'liukunmiao',
+                }
+            }
+        });
+        Vue.component('hello', hello);//全局注册hello 就代表所有的vm都可以用hello组件了
+        new Vue({
+            el: '#root',
+            //配置组件(局部注册)
+            components: {
+                student,// student:student
+                school  // school:school
+            }
+        })
+        new Vue({
+            el: '#root2',
+        })
+    </script>
+</body>
+
+</html>
